@@ -1,0 +1,92 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+
+local player = Players.LocalPlayer
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "OLLICOP11_HUB"
+gui.ResetOnSpawn = false
+gui.Parent = player:WaitForChild("PlayerGui")
+
+local blur = Instance.new("BlurEffect")
+blur.Size = 0
+blur.Parent = Lighting
+TweenService:Create(blur, TweenInfo.new(0.5), {Size = 24}):Play()
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 360, 0, 150)
+frame.Position = UDim2.new(0.5, -180, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+frame.BorderSizePixel = 0
+frame.Parent = gui
+
+local outline = Instance.new("UIStroke")
+outline.Thickness = 3
+outline.Color = Color3.fromRGB(0, 255, 0)
+outline.Parent = frame
+
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 8)
+corner.Parent = frame
+
+local title = Instance.new("TextLabel")
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundTransparency = 1
+title.TextColor3 = Color3.fromRGB(0, 255, 0)
+title.TextScaled = true
+title.Font = Enum.Font.GothamBold
+title.Parent = frame
+
+local function typeTitle(t, s)
+    s = s or 0.1
+    title.Text = ""
+    for i = 1, #t do
+        title.Text = t:sub(1, i)
+        task.wait(s)
+    end
+end
+
+task.spawn(function()
+    while true do
+        typeTitle("OLLICOP11's HUB") -- Updated Title
+        task.wait(0.5)
+        title.Text = ""
+        task.wait(0.5)
+    end
+end)
+
+local close = Instance.new("TextButton")
+close.Size = UDim2.new(0, 30, 0, 30)
+close.Position = UDim2.new(1, -35, 0, 5)
+close.BackgroundTransparency = 1
+close.Text = "X"
+close.TextColor3 = Color3.fromRGB(255, 255, 255)
+close.TextScaled = true
+close.Font = Enum.Font.GothamBold
+close.Parent = frame
+
+close.MouseButton1Click:Connect(function()
+    gui:Destroy()
+    blur:Destroy()
+end)
+
+local loadBtn = Instance.new("TextButton")
+loadBtn.Size = UDim2.new(1, -40, 0, 40)
+loadBtn.Position = UDim2.new(0, 20, 0, 70)
+loadBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+loadBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadBtn.Font = Enum.Font.GothamBold
+loadBtn.Text = "Load"
+loadBtn.TextSize = 16
+loadBtn.Parent = frame
+
+local loadCorner = Instance.new("UICorner")
+loadCorner.CornerRadius = UDim.new(0, 6)
+loadCorner.Parent = loadBtn
+
+loadBtn.MouseButton1Click:Connect(function()
+    print("System Loaded")
+    gui:Destroy()
+    blur:Destroy()
+end)
